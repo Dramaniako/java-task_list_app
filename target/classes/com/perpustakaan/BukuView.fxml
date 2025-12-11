@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox spacing="15.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.perpustakaan.controller.BukuController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+
+    <Label text="MANAJEMEN DATA BUKU" style="-fx-font-weight: bold; -fx-font-size: 18;" />
+
+    <GridPane hgap="10.0" vgap="10.0">
+        <Label text="ID Buku:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <TextField fx:id="txtId" editable="false" promptText="Otomatis" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        
+        <Label text="Judul:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <TextField fx:id="txtJudul" promptText="Masukkan Judul Buku" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        
+        <Label text="Pengarang:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <TextField fx:id="txtPengarang" promptText="Masukkan Nama Pengarang" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        
+        <HBox spacing="10.0" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <Button text="Simpan" onAction="#handleSimpan" style="-fx-background-color: #28a745; -fx-text-fill: white;" />
+            <Button text="Ubah" onAction="#handleUbah" style="-fx-background-color: #ffc107;" />
+            <Button text="Hapus" onAction="#handleHapus" style="-fx-background-color: #dc3545; -fx-text-fill: white;" />
+            <Button text="Reset" onAction="#handleReset" />
+        </HBox>
+    </GridPane>
+
+    <Label text="Daftar Buku" style="-fx-font-weight: bold;" />
+    <TableView fx:id="tvBuku" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colID" text="ID" prefWidth="50.0" />
+            <TableColumn fx:id="colJudul" text="Judul Buku" prefWidth="300.0" />
+            <TableColumn fx:id="colPengarang" text="Pengarang" prefWidth="200.0" />
+        </columns>
+    </TableView>
+
+    <Label fx:id="lblStatus" text="Status: Siap." style="-fx-font-style: italic;" />
+</VBox>
