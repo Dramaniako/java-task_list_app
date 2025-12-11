@@ -1,5 +1,8 @@
-com\perpustakaan\App.class
-com\perpustakaan\model\Buku.class
-com\perpustakaan\model\BukuDAO.class
+com\scheduler\model\Tugas.class
+com\scheduler\controller\MainController.class
 module-info.class
-com\perpustakaan\controller\BukuController.class
+com\scheduler\App.class
+com\scheduler\controller\LoginController.class
+com\scheduler\model\Pengguna.class
+com\scheduler\model\Session.class
+com\scheduler\util\DatabaseHelper.class

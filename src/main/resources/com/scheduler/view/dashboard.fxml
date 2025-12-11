@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx/8"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.scheduler.controller.MainController">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20" />
+    </padding>
+
+    <Label text="Sistem Penjadwalan Tugas Mahasiswa"
+        style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+
+    <HBox spacing="10">
+        <VBox spacing="5">
+            <Label text="Nama Tugas:" />
+            <TextField fx:id="txtNama" promptText="Masukkan nama tugas" />
+            <Label text="Deskripsi:" />
+            <TextArea fx:id="txtDeskripsi" prefHeight="50" />
+            <Label text="Tenggat Waktu:" />
+            <DatePicker fx:id="dpTenggat" />
+            <Button text="Tambah Tugas" onAction="#handleTambah" maxWidth="Infinity" />
+            <Button text="Hapus Terpilih" onAction="#handleHapus" maxWidth="Infinity"
+                style="-fx-background-color: #ffcccc;" />
+        </VBox>
+
+        <TableView fx:id="tableTugas" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colNama" text="Nama Tugas" prefWidth="150" />
+                <TableColumn fx:id="colTenggat" text="Deadline" prefWidth="100" />
+                <TableColumn fx:id="colStatus" text="Status" prefWidth="120" />
+            </columns>
+        </TableView>
+    </HBox>
+</VBox>
