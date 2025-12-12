@@ -120,6 +120,21 @@ public class MainController {
         }
     }
 
+    @FXML
+    private void handleStatus() {
+        Tugas selected = tableTugas.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            String query = "UPDATE Tugas SET status = 'selesai' WHERE id_Tugas = ?";
+            try (Connection conn = DatabaseHelper.connect(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+                pstmt.setInt(1, selected.getId());
+                pstmt.executeUpdate();
+                loadData();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     private void clearForm() {
         txtNama.clear();
         txtDeskripsi.clear();

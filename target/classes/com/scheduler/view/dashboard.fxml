@@ -11,12 +11,15 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" spacing="10" style="-fx-background-color: #FE9900;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scheduler.controller.MainController">
+<VBox alignment="CENTER" spacing="10" style="-fx-background-color: #FE9900;"
+    xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.scheduler.controller.MainController">
     <padding>
         <Insets bottom="20" left="20" right="20" top="20" />
     </padding>
 
-    <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Sistem Penjadwalan Tugas Mahasiswa" />
+    <Label style="-fx-font-size: 18px; -fx-font-weight: bold;"
+        text="Sistem Penjadwalan Tugas Mahasiswa" />
 
     <HBox spacing="10">
         <VBox spacing="5">
@@ -27,7 +30,10 @@
             <Label text="Tenggat Waktu:" />
             <DatePicker fx:id="dpTenggat" />
             <Button maxWidth="Infinity" onAction="#handleTambah" text="Tambah Tugas" />
-            <Button maxWidth="Infinity" onAction="#handleHapus" style="-fx-background-color: #ffcccc;" text="Hapus Terpilih" />
+            <Button maxWidth="Infinity" onAction="#handleHapus"
+                style="-fx-background-color: #DC143C;" text="Hapus Terpilih" textFill="WHITE" />
+            <Button maxWidth="Infinity" onAction="#handleStatus"
+                style="-fx-background-color: #228B22;" text="Selesai" textFill="WHITE" />
         </VBox>
 
         <TableView fx:id="tableTugas" VBox.vgrow="ALWAYS">
