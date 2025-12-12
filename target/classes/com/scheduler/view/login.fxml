@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" spacing="15" xmlns="http://javafx.com/javafx/17"
-    xmlns:fx="http://javafx.com/fxml/1"
-    fx:controller="com.scheduler.controller.LoginController" style="-fx-background-color: #f4f4f4;">
+<VBox alignment="CENTER" spacing="15" style="-fx-background-color: #FE9900;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scheduler.controller.LoginController">
 
     <padding>
-        <Insets top="40" right="40" bottom="40" left="40" />
+        <Insets bottom="40" left="40" right="40" top="40" />
     </padding>
 
-    <Label text="LOGIN SISTEM" textFill="#333333">
+    <Label prefHeight="11.0" prefWidth="241.0" text="LOGIN SISTEM" textFill="#333333">
         <font>
-            <Font name="System Bold" size="24.0" />
+            <Font name="System Bold" size="35.0" />
         </font>
     </Label>
 
-    <Label text="Silakan masuk untuk mengelola tugas Anda" textFill="#666666" />
+    <Label prefHeight="0.0" prefWidth="231.0" text="Silakan masuk untuk mengelola tugas Anda" />
 
-    <VBox spacing="5" maxWidth="300">
+    <VBox maxWidth="300" spacing="5">
         <Label text="Username:" />
         <TextField fx:id="txtUsername" promptText="Masukkan username" />
     </VBox>
 
-    <VBox spacing="5" maxWidth="300">
+    <VBox maxWidth="300" spacing="5">
         <Label text="Password:" />
         <PasswordField fx:id="txtPassword" promptText="Masukkan password" />
     </VBox>
 
     <Label fx:id="lblError" textFill="RED" />
 
-    <Button text="MASUK" onAction="#handleLogin" prefWidth="300"
-        style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" />
+    <Button onAction="#handleLogin" prefWidth="300" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" text="MASUK" />
 </VBox>
