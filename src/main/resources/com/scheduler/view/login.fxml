@@ -8,7 +8,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" spacing="15" style="-fx-background-color: #FE9900;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scheduler.controller.LoginController">
+<VBox alignment="CENTER" spacing="15" style="-fx-background-color: #FE9900;"
+    xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.scheduler.controller.LoginController">
 
     <padding>
         <Insets bottom="40" left="40" right="40" top="40" />
@@ -34,5 +36,10 @@
 
     <Label fx:id="lblError" textFill="RED" />
 
-    <Button onAction="#handleLogin" prefWidth="300" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" text="MASUK" />
+    <Button onAction="#handleLogin" prefWidth="300"
+        style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;"
+        text="MASUK" />
+    <Button onAction="#switchToRegister" prefWidth="300"
+        style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;"
+        text="REGISTER" />
 </VBox>

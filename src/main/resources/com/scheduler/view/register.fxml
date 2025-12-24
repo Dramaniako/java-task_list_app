@@ -16,13 +16,13 @@
         <Insets bottom="40" left="40" right="40" top="40" />
     </padding>
 
-    <Label prefHeight="11.0" prefWidth="241.0" text="LOGIN SISTEM" textFill="#333333">
+    <Label prefHeight="11.0" prefWidth="241.0" text="REGISTER SISTEM" textFill="#333333">
         <font>
             <Font name="System Bold" size="35.0" />
         </font>
     </Label>
 
-    <Label prefHeight="0.0" prefWidth="231.0" text="Silakan masuk untuk mengelola tugas Anda" />
+    <Label prefHeight="0.0" prefWidth="231.0" text="Silakan masukan data Anda" />
 
     <VBox maxWidth="300" spacing="5">
         <Label text="Username:" />
@@ -30,16 +30,23 @@
     </VBox>
 
     <VBox maxWidth="300" spacing="5">
+        <Label text="Email:" />
+        <TextField fx:id="txtEmail" promptText="Masukkan email" />
+    </VBox>
+
+    <VBox maxWidth="300" spacing="5">
         <Label text="Password:" />
         <PasswordField fx:id="txtPassword" promptText="Masukkan password" />
     </VBox>
 
+    <VBox maxWidth="300" spacing="5">
+        <Label text="Confirm Password:" />
+        <PasswordField fx:id="txtConPassword" promptText="Masukkan ulang password" />
+    </VBox>
+
     <Label fx:id="lblError" textFill="RED" />
 
-    <Button onAction="#handleLogin" prefWidth="300"
-        style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;"
-        text="MASUK" />
-    <Button onAction="#switchToRegister" prefWidth="300"
+    <Button onAction="#handleRegister" prefWidth="300"
         style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;"
         text="REGISTER" />
 </VBox>

@@ -24,7 +24,11 @@ public class LoginController {
     @FXML
     private TextField txtUsername;
     @FXML
+    private TextField txtEmail;
+    @FXML
     private PasswordField txtPassword;
+    @FXML
+    private PasswordField txtConPassword;
     @FXML
     private Label lblError;
 
@@ -73,6 +77,46 @@ public class LoginController {
         }
     }
 
+    @FXML
+    private void handleRegister() {
+        String username = txtUsername.getText();
+        String email = txtEmail.getText();
+        String password = txtPassword.getText();
+        String confirmPassword = txtConPassword.getText();
+
+        if (username.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+            lblError.setText("Semua field harus diisi!");
+            return;
+        }
+
+        String query = "SELECT * FROM Pengguna WHERE nama_Pengguna = ? AND email = ?";
+        String regist = "INSERT INTO Pengguna (nama_Pengguna, email, password) VALUES (?,?,?)";
+
+        try (Connection conn = DatabaseHelper.connect(); PreparedStatement pstmt = conn.prepareStatement(query); PreparedStatement reg = conn.prepareStatement(regist)) {
+
+            pstmt.setString(1, username);
+            pstmt.setString(2, email);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            if (!rs.next()) {
+                reg.setString(1, username);
+                reg.setString(2, email);
+                reg.setString(3, password);
+
+                reg.executeUpdate();
+
+                switchToLogin();
+            } else {
+                lblError.setText("Username atau Email sudah digunakan!");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            lblError.setText("Database Error!");
+        }
+    }
+
     private void switchToDashboard() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/scheduler/view/dashboard.fxml"));
@@ -80,6 +124,33 @@ public class LoginController {
             Stage stage = (Stage) txtUsername.getScene().getWindow();
             stage.setScene(new Scene(root, 800, 500));
             stage.setTitle("Dashboard Tugas - " + Session.getUser().getNamaPengguna());
+            stage.centerOnScreen();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void switchToLogin() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/scheduler/view/login.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) txtUsername.getScene().getWindow();
+            stage.setScene(new Scene(root, 400, 350));
+            stage.setTitle("Login - Sistem Penjadwalan Tugas");
+            stage.centerOnScreen();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void switchToRegister() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/scheduler/view/register.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) txtUsername.getScene().getWindow();
+            stage.setScene(new Scene(root, 400, 500));
+            stage.setTitle("Register - Sistem Penjadwalan Tugas");
             stage.centerOnScreen();
         } catch (IOException e) {
             e.printStackTrace();
