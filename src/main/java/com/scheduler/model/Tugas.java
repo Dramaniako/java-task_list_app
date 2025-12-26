@@ -9,16 +9,17 @@ public class Tugas {
     private String deskripsi;
     private LocalDate tenggat;
     private String status;
+    private String id_Kelompok;
 
-    public Tugas(int id, String namaTugas, String deskripsi, LocalDate tenggat, String status) {
+    public Tugas(int id, String namaTugas, String deskripsi, LocalDate tenggat, String status, String id_Kelompok) {
         this.id = id;
         this.namaTugas = namaTugas;
         this.deskripsi = deskripsi;
         this.tenggat = tenggat;
         this.status = status;
+        this.id_Kelompok = id_Kelompok;
     }
 
-    // Getters and Setters sesuai konsep Enkapsulasi [cite: 166]
     public int getId() {
         return id;
     }

@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -11,12 +12,15 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" spacing="10" style="-fx-background-color: #FE9900;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scheduler.controller.MainController">
+<VBox alignment="CENTER" spacing="10" style="-fx-background-color: #FE9900;"
+    xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.scheduler.controller.MainController">
     <padding>
         <Insets bottom="20" left="20" right="20" top="20" />
     </padding>
 
-    <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Sistem Penjadwalan Tugas Mahasiswa" />
+    <Label style="-fx-font-size: 18px; -fx-font-weight: bold;"
+        text="Sistem Penjadwalan Tugas Mahasiswa" />
 
     <HBox spacing="10">
         <VBox spacing="5">
@@ -26,17 +30,30 @@
             <TextArea fx:id="txtDeskripsi" prefHeight="50" />
             <Label text="Tenggat Waktu:" />
             <DatePicker fx:id="dpTenggat" />
+            <Label text="Kode Kelompok:" />
+            <TextField fx:id="txtKelompok" />
             <Button maxWidth="Infinity" onAction="#handleTambah" text="Tambah Tugas" />
-            <Button maxWidth="Infinity" onAction="#handleHapus" style="-fx-background-color: #DC143C;" text="Hapus Terpilih" textFill="WHITE" />
-            <Button maxWidth="Infinity" onAction="#handleStatus" style="-fx-background-color: #228B22;" text="Selesai" textFill="WHITE" />
+            <Button maxWidth="Infinity" onAction="#handleHapus"
+                style="-fx-background-color: #DC143C;" text="Hapus Terpilih" textFill="WHITE" />
+            <Button maxWidth="Infinity" onAction="#handleStatus"
+                style="-fx-background-color: #228B22;" text="Selesai" textFill="WHITE" />
         </VBox>
 
-        <TableView fx:id="tableTugas" VBox.vgrow="ALWAYS">
-            <columns>
-                <TableColumn fx:id="colNama" prefWidth="150" text="Nama Tugas" />
-                <TableColumn fx:id="colTenggat" prefWidth="100" text="Deadline" />
-                <TableColumn fx:id="colStatus" prefWidth="120" text="Status" />
-            </columns>
-        </TableView>
+        <VBox>
+            <HBox spacing="5">
+                <ChoiceBox prefWidth="150.0" fx:id="kelompok" />
+                <Button text="+" onAction="#handleBuatKelompok"
+                    style="-fx-font-weight: bold; -fx-background-color: #4CAF50; -fx-text-fill: white;">
+                </Button>
+            </HBox>
+            <TableView fx:id="tableTugas" prefWidth="373.0" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colNama" prefWidth="150" text="Nama Tugas" />
+                    <TableColumn fx:id="colTenggat" prefWidth="100" text="Deadline" />
+                    <TableColumn fx:id="colStatus" prefWidth="120" text="Status" />
+                </columns>
+            </TableView>
+        </VBox>
+
     </HBox>
 </VBox>

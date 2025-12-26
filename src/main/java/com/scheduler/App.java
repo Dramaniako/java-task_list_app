@@ -12,10 +12,9 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        // PERUBAHAN: Load login.fxml dulu
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/scheduler/view/login.fxml"));
         Parent root = loader.load();
-        Scene scene = new Scene(root, 400, 350); // Ukuran lebih kecil untuk login
+        Scene scene = new Scene(root, 400, 350);
         stage.setTitle("Login - Sistem Penjadwalan Tugas");
         stage.setScene(scene);
         stage.show();
