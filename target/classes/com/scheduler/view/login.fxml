@@ -8,38 +8,32 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" spacing="15" style="-fx-background-color: #FE9900;"
-    xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
-    fx:controller="com.scheduler.controller.LoginController">
+<VBox alignment="CENTER" spacing="15" style="-fx-background-color: #252F3B;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scheduler.controller.LoginController">
 
     <padding>
         <Insets bottom="40" left="40" right="40" top="40" />
     </padding>
 
-    <Label prefHeight="11.0" prefWidth="241.0" text="LOGIN SISTEM" textFill="#333333">
+    <Label prefHeight="11.0" prefWidth="241.0" text="LOGIN SISTEM" textFill="#c5334c">
         <font>
             <Font name="System Bold" size="35.0" />
         </font>
     </Label>
 
-    <Label prefHeight="0.0" prefWidth="231.0" text="Silakan masuk untuk mengelola tugas Anda" />
+    <Label prefHeight="0.0" prefWidth="231.0" text="Silakan masuk untuk mengelola tugas Anda" textFill="#c5334c" />
 
     <VBox maxWidth="300" spacing="5">
-        <Label text="Username:" />
+        <Label text="Username:" textFill="#c5334c" />
         <TextField fx:id="txtUsername" promptText="Masukkan username" />
     </VBox>
 
     <VBox maxWidth="300" spacing="5">
-        <Label text="Password:" />
+        <Label text="Password:" textFill="#c5334c" />
         <PasswordField fx:id="txtPassword" promptText="Masukkan password" />
     </VBox>
 
     <Label fx:id="lblError" textFill="RED" />
 
-    <Button onAction="#handleLogin" prefWidth="300"
-        style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;"
-        text="MASUK" />
-    <Button onAction="#switchToRegister" prefWidth="300"
-        style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;"
-        text="REGISTER" />
+    <Button onAction="#handleLogin" prefWidth="300" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" text="MASUK" />
+    <Button onAction="#switchToRegister" prefWidth="300" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" text="REGISTER" />
 </VBox>

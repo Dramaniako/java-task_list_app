@@ -8,37 +8,37 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" spacing="15" style="-fx-background-color: #FE9900;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scheduler.controller.LoginController">
+<VBox alignment="CENTER" spacing="15" style="-fx-background-color: #252F3B;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scheduler.controller.LoginController">
 
     <padding>
         <Insets bottom="40" left="40" right="40" top="40" />
     </padding>
 
-    <Label prefHeight="51.0" prefWidth="306.0" text="REGISTER SISTEM" textFill="#333333">
+    <Label prefHeight="51.0" prefWidth="306.0" text="REGISTER SISTEM" textFill="#c5334c">
         <font>
             <Font name="System Bold" size="35.0" />
         </font>
     </Label>
 
-    <Label alignment="CENTER" prefHeight="25.0" prefWidth="259.0" text="Silakan masukan data Anda" textAlignment="CENTER" />
+    <Label alignment="CENTER" prefHeight="25.0" prefWidth="259.0" text="Silakan masukan data Anda" textAlignment="CENTER" textFill="#c5334c" />
 
     <VBox maxWidth="300" spacing="5">
-        <Label text="Username:" />
+        <Label text="Username:" textFill="#c5334c" />
         <TextField fx:id="txtUsername" promptText="Masukkan username" />
     </VBox>
 
     <VBox maxWidth="300" spacing="5">
-        <Label text="Email:" />
+        <Label text="Email:" textFill="#c5334c" />
         <TextField fx:id="txtEmail" promptText="Masukkan email" />
     </VBox>
 
     <VBox maxWidth="300" spacing="5">
-        <Label text="Password:" />
+        <Label text="Password:" textFill="#c5334c" />
         <PasswordField fx:id="txtPassword" promptText="Masukkan password" />
     </VBox>
 
     <VBox maxWidth="300" spacing="5">
-        <Label text="Confirm Password:" />
+        <Label text="Confirm Password:" textFill="#c5334c" />
         <PasswordField fx:id="txtConPassword" promptText="Masukkan ulang password" />
     </VBox>
 
