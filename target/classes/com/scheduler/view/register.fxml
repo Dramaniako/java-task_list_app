@@ -8,21 +8,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" spacing="15" style="-fx-background-color: #FE9900;"
-    xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
-    fx:controller="com.scheduler.controller.LoginController">
+<VBox alignment="CENTER" spacing="15" style="-fx-background-color: #FE9900;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scheduler.controller.LoginController">
 
     <padding>
         <Insets bottom="40" left="40" right="40" top="40" />
     </padding>
 
-    <Label prefHeight="11.0" prefWidth="241.0" text="REGISTER SISTEM" textFill="#333333">
+    <Label prefHeight="51.0" prefWidth="306.0" text="REGISTER SISTEM" textFill="#333333">
         <font>
             <Font name="System Bold" size="35.0" />
         </font>
     </Label>
 
-    <Label prefHeight="0.0" prefWidth="231.0" text="Silakan masukan data Anda" />
+    <Label alignment="CENTER" prefHeight="25.0" prefWidth="259.0" text="Silakan masukan data Anda" textAlignment="CENTER" />
 
     <VBox maxWidth="300" spacing="5">
         <Label text="Username:" />
@@ -46,7 +44,7 @@
 
     <Label fx:id="lblError" textFill="RED" />
 
-    <Button onAction="#handleRegister" prefWidth="300"
-        style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;"
-        text="REGISTER" />
+    <Button onAction="#handleRegister" prefWidth="300" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" text="REGISTER" />
+
+    <Button onAction="#switchToLogin" prefWidth="300" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" text="LOGIN" />
 </VBox>

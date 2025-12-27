@@ -14,9 +14,10 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/scheduler/view/login.fxml"));
         Parent root = loader.load();
-        Scene scene = new Scene(root, 400, 350);
+        Scene scene = new Scene(root, 1400, 650);
         stage.setTitle("Login - Sistem Penjadwalan Tugas");
         stage.setScene(scene);
+        stage.setMaximized(true);
         stage.show();
     }
 

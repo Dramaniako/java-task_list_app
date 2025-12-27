@@ -13,7 +13,6 @@ import com.scheduler.util.DatabaseHelper;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -122,7 +121,7 @@ public class LoginController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/scheduler/view/dashboard.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) txtUsername.getScene().getWindow();
-            stage.setScene(new Scene(root, 800, 500));
+            stage.getScene().setRoot(root);
             stage.setTitle("Dashboard Tugas - " + Session.getUser().getNamaPengguna());
             stage.centerOnScreen();
         } catch (IOException e) {
@@ -130,12 +129,13 @@ public class LoginController {
         }
     }
 
+    @FXML
     private void switchToLogin() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/scheduler/view/login.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) txtUsername.getScene().getWindow();
-            stage.setScene(new Scene(root, 400, 350));
+            stage.getScene().setRoot(root);
             stage.setTitle("Login - Sistem Penjadwalan Tugas");
             stage.centerOnScreen();
         } catch (IOException e) {
@@ -149,7 +149,7 @@ public class LoginController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/scheduler/view/register.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) txtUsername.getScene().getWindow();
-            stage.setScene(new Scene(root, 400, 500));
+            stage.getScene().setRoot(root);
             stage.setTitle("Register - Sistem Penjadwalan Tugas");
             stage.centerOnScreen();
         } catch (IOException e) {
