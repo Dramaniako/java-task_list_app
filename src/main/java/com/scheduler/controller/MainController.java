@@ -259,10 +259,10 @@ public class MainController {
             return;
         }
 
-        String sqlCheckLeader = "SELECT id_Ketua FROM Kelompok WHERE id_Kelompok = ?";
-        String sqlDeleteTasks = "DELETE FROM Tugas WHERE id_Kelompok = ?";
-        String sqlDeleteMembers = "DELETE FROM Anggota WHERE id_Kelompok = ?";
-        String sqlDeleteGroup = "DELETE FROM Kelompok WHERE id_Kelompok = ?";
+        String sqlCheckLeader = "SELECT id_Ketua FROM kelompok WHERE id_Kelompok = ?";
+        String sqlDeleteTasks = "DELETE FROM tugas WHERE id_Kelompok = ?";
+        String sqlDeleteMembers = "DELETE FROM anggota WHERE id_Kelompok = ?";
+        String sqlDeleteGroup = "DELETE FROM kelompok WHERE id_Kelompok = ?";
 
         try (Connection conn = DatabaseHelper.connect()) {
             // Start Transaction (Important!)
