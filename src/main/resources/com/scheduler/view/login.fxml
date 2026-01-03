@@ -8,7 +8,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" spacing="15" style="-fx-background-color: #252F3B;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scheduler.controller.LoginController">
+<VBox alignment="CENTER" spacing="15" style="-fx-background-color: #252F3B;"
+    xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.scheduler.controller.auth.LoginController">
 
     <padding>
         <Insets bottom="40" left="40" right="40" top="40" />
@@ -20,7 +22,8 @@
         </font>
     </Label>
 
-    <Label prefHeight="0.0" prefWidth="231.0" text="Silakan masuk untuk mengelola tugas Anda" textFill="#c5334c" />
+    <Label prefHeight="0.0" prefWidth="231.0" text="Silakan masuk untuk mengelola tugas Anda"
+        textFill="#c5334c" />
 
     <VBox maxWidth="300" spacing="5">
         <Label text="Username:" textFill="#c5334c" />
@@ -34,6 +37,10 @@
 
     <Label fx:id="lblError" textFill="RED" />
 
-    <Button onAction="#handleLogin" prefWidth="300" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" text="MASUK" />
-    <Button onAction="#switchToRegister" prefWidth="300" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" text="REGISTER" />
+    <Button onAction="#handleLogin" prefWidth="300"
+        style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;"
+        text="MASUK" />
+    <Button onAction="#switchToRegister" prefWidth="300"
+        style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;"
+        text="REGISTER" />
 </VBox>

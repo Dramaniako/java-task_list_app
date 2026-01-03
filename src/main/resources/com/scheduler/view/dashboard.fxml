@@ -13,9 +13,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" spacing="25.0" style="-fx-background-color: #252F3B;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scheduler.controller.MainController">
+<VBox alignment="CENTER" spacing="25.0" style="-fx-background-color: #252F3B;"
+    xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.scheduler.controller.dashboard.DashboardController">
 
-    <Label alignment="CENTER" prefHeight="40.0" prefWidth="321.0" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Sistem Penjadwalan Tugas Mahasiswa" textFill="#c5334c">
+    <Label alignment="CENTER" prefHeight="40.0" prefWidth="321.0"
+        style="-fx-font-size: 18px; -fx-font-weight: bold;"
+        text="Sistem Penjadwalan Tugas Mahasiswa" textFill="#c5334c">
         <padding>
             <Insets bottom="25.0" />
         </padding>
@@ -33,14 +37,18 @@
             <Label text="Tenggat Waktu:" textFill="#c5334c" />
             <DatePicker fx:id="dpTenggat" />
             <Button maxWidth="Infinity" onAction="#handleTambah" text="Tambah Tugas" />
-            <Button maxWidth="Infinity" onAction="#handleHapus" style="-fx-background-color: #DC143C;" text="Hapus Terpilih" textFill="WHITE" />
-            <Button maxWidth="Infinity" onAction="#handleStatus" style="-fx-background-color: #228B22;" text="Selesai" textFill="WHITE" />
+            <Button maxWidth="Infinity" onAction="#handleHapus"
+                style="-fx-background-color: #DC143C;" text="Hapus Terpilih" textFill="WHITE" />
+            <Button maxWidth="Infinity" onAction="#handleStatus"
+                style="-fx-background-color: #228B22;" text="Selesai" textFill="WHITE" />
         </VBox>
 
         <VBox>
             <HBox spacing="5">
                 <ChoiceBox fx:id="kelompok" prefWidth="150.0" />
-                <Button onAction="#handleKelompok" style="-fx-font-weight: bold; -fx-background-color: #4CAF50; -fx-text-fill: white;" text="+">
+                <Button onAction="#handleKelompok"
+                    style="-fx-font-weight: bold; -fx-background-color: #4CAF50; -fx-text-fill: white;"
+                    text="+">
                 </Button>
                 <VBox.margin>
                     <Insets bottom="5.0" />
@@ -65,7 +73,8 @@
                     <Insets bottom="10.0" />
                 </VBox.margin>
             </Label>
-            <TextField fx:id="tfCurrentId" editable="false" prefWidth="373.0" style="-fx-background-color: #e0e0e0;" text="-">
+            <TextField fx:id="tfCurrentId" editable="false" prefWidth="373.0"
+                style="-fx-background-color: #e0e0e0;" text="-">
                 <VBox.margin>
                     <Insets bottom="10.0" />
                 </VBox.margin>
@@ -82,8 +91,10 @@
             </TableView>
             <VBox alignment="CENTER" spacing="10.0">
                 <children>
-                    <Button maxWidth="1.7976931348623157E308" onAction="#hapusAnggota" style="-fx-background-color: #DC143C;" text="Keluarkan" textFill="WHITE" />
-                    <Button maxWidth="1.7976931348623157E308" onAction="#handleHapusKelompok" style="-fx-background-color: black;" text="Hapus Kelompok" textFill="WHITE" />
+                    <Button maxWidth="1.7976931348623157E308" onAction="#hapusAnggota"
+                        style="-fx-background-color: #DC143C;" text="Keluarkan" textFill="WHITE" />
+                    <Button maxWidth="1.7976931348623157E308" onAction="#handleHapusKelompok"
+                        style="-fx-background-color: black;" text="Hapus Kelompok" textFill="WHITE" />
                 </children>
                 <padding>
                     <Insets bottom="10.0" top="10.0" />

@@ -6,10 +6,10 @@ public class Kelompok {
     private String namaKelompok;
     private int idKetua;
 
-    public Kelompok(int idKelompok, int idKetua, String namaKelompok) {
+    public Kelompok(int idKelompok, String namaKelompok, int idKetua) {
         this.idKelompok = idKelompok;
-        this.idKetua = idKetua;
         this.namaKelompok = namaKelompok;
+        this.idKetua = idKetua;
     }
 
     public int getIdKelompok() {
@@ -36,4 +36,8 @@ public class Kelompok {
         this.idKetua = idKetua;
     }
 
+    @Override
+    public String toString() {
+        return namaKelompok;
+    }
 }
