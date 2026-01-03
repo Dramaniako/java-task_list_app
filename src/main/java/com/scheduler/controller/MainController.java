@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
-import com.scheduler.controller.MainController.GroupOption;
 import com.scheduler.model.Anggota;
 import com.scheduler.model.Session;
 import com.scheduler.model.Tugas;
@@ -57,9 +56,9 @@ public class MainController {
     @FXML
     private TextField tfCurrentId;
     @FXML
-    private TableColumn<Anggota, Integer> colAnggotaId; // The User ID
+    private TableColumn<Anggota, Integer> colAnggotaId;
     @FXML
-    private TableColumn<Anggota, String> colAnggotaNama; // The Name
+    private TableColumn<Anggota, String> colAnggotaNama;
     @FXML
     private TableColumn<Anggota, String> colAnggotaStatus;
 
@@ -77,11 +76,8 @@ public class MainController {
         colNama.setCellValueFactory(new PropertyValueFactory<>("namaTugas"));
         colDeskripsi.setCellValueFactory(new PropertyValueFactory<>("deskripsi"));
         colTenggat.setCellValueFactory(new PropertyValueFactory<>("tenggat"));
-
-        // 1. Set the Value Factory (Data Binding)
         colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
 
-        // 2. Set the Cell Factory (Visual Styling)
         colStatus.setCellFactory(column -> new javafx.scene.control.TableCell<Tugas, String>() {
             @Override
             protected void updateItem(String item, boolean empty) {
@@ -89,19 +85,15 @@ public class MainController {
 
                 if (item == null || empty) {
                     setText(null);
-                    setStyle(""); // Reset style for empty cells
+                    setStyle("");
                 } else {
                     setText(item);
 
-                    // Check the status string and change color
                     if ("BELUM_DIKERJAKAN".equalsIgnoreCase(item)) {
-                        // Red text, bold
                         setStyle("-fx-background-color: red; -fx-text-fill: white; -fx-font-weight: bold;");
                     } else if ("SELESAI".equalsIgnoreCase(item)) {
-                        // Green text, bold
                         setStyle("-fx-background-color: green; -fx-text-fill: white; -fx-font-weight: bold;");
                     } else {
-                        // Default black for any other status
                         setStyle("-fx-text-fill: black;");
                     }
                 }
@@ -109,15 +101,13 @@ public class MainController {
         });
 
         colAnggotaId.setCellValueFactory(new PropertyValueFactory<>("idPengguna"));
-        colAnggotaNama.setCellValueFactory(new PropertyValueFactory<>("namaPengguna")); // Matches getNamaPengguna()
-        colAnggotaStatus.setCellValueFactory(new PropertyValueFactory<>("statusAnggota")); // Matches getStatusAnggota()
+        colAnggotaNama.setCellValueFactory(new PropertyValueFactory<>("namaPengguna"));
+        colAnggotaStatus.setCellValueFactory(new PropertyValueFactory<>("statusAnggota"));
 
         cekTenggat();
 
-        // 1. Load the Groups into ChoiceBox first
         loadKelompokOptions();
 
-        // 2. Add listener: When user changes Group in ChoiceBox, reload the table
         kelompok.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
                 if (newVal.getId() == 0) {
@@ -130,15 +120,12 @@ public class MainController {
             }
         });
 
-        // 3. Select the first group by default (if any exist) to trigger loadData
         if (!kelompok.getItems().isEmpty()) {
             kelompok.getSelectionModel().selectFirst();
         }
     }
 
     private void loadKelompokOptions() {
-        // Query to find groups where the current user is a member (Anggota)
-        // Adjust table names (Kelompok/Anggota) if yours are different
         String query = "SELECT kelompok.id_Kelompok, kelompok.nama_Kelompok FROM kelompok JOIN anggota ON kelompok.id_Kelompok = anggota.id_Kelompok WHERE anggota.id_Pengguna = ?";
 
         ObservableList<GroupOption> options = FXCollections.observableArrayList();
@@ -172,7 +159,7 @@ public class MainController {
         GroupOption selectedGroup = kelompok.getValue();
 
         if (selectedGroup == null || selectedGroup.getId() == 0) {
-            tableAnggota.setItems(listAnggota); // Clear table
+            tableAnggota.setItems(listAnggota);
             return;
         }
 
@@ -188,8 +175,8 @@ public class MainController {
                         rs.getInt("id_Anggota"),
                         rs.getInt("id_Kelompok"),
                         rs.getInt("id_Pengguna"),
-                        rs.getString("nama_Pengguna"), // Fetched from Pengguna table
-                        rs.getString("status_Anggota") // Fetched from Anggota table
+                        rs.getString("nama_Pengguna"),
+                        rs.getString("status_Anggota")
                 ));
             }
             tableAnggota.setItems(listAnggota);
@@ -218,11 +205,9 @@ public class MainController {
 
         try (Connection conn = DatabaseHelper.connect()) {
 
-            // --- STEP 1: Verify that YOU are the Leader (Ketua) ---
             int idKetua = -1;
 
             try (PreparedStatement pstmtCheck = conn.prepareStatement(sqlCheckLeader)) {
-                // FIX: Use .getValue().getId(), not .getId()
                 pstmtCheck.setInt(1, selectedGroup.getId());
 
                 try (ResultSet rs = pstmtCheck.executeQuery()) {
@@ -232,19 +217,16 @@ public class MainController {
                 }
             }
 
-            // Logic Check: Are you the leader?
             if (idKetua != Session.getUser().getId()) {
                 showAlert("Akses Ditolak", "Hanya Ketua Kelompok yang berhak mengeluarkan anggota.");
                 return;
             }
 
-            // Optional Safety: Don't let the leader delete themselves
             if (selectedMember.getIdPengguna() == idKetua) {
                 showAlert("Gagal", "Anda adalah ketua. Anda tidak bisa mengeluarkan diri sendiri.");
                 return;
             }
 
-            // --- STEP 2: Execute Delete ---
             try (PreparedStatement pstmtDelete = conn.prepareStatement(sqlDeleteMember)) {
                 pstmtDelete.setInt(1, selectedMember.getIdPengguna());
                 pstmtDelete.setInt(2, selectedGroup.getId());
@@ -252,7 +234,6 @@ public class MainController {
                 int affectedRows = pstmtDelete.executeUpdate();
 
                 if (affectedRows > 0) {
-                    // FIX: Refresh the ANGGOTA table, not just the data/tasks table
                     loadAnggota();
                     showAlert("Sukses", "Anggota berhasil dikeluarkan!");
                 } else {
@@ -366,13 +347,8 @@ public class MainController {
         try (Connection conn = DatabaseHelper.connect(); PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             if (isShowAll) {
-                // Mapping to: WHERE id_Pengguna = ?
                 pstmt.setInt(1, Session.getUser().getId());
             } else {
-                // Mapping to: WHERE id_Kelompok = ?
-                // WARNING: In your previous code, id_Kelompok was a String. 
-                // If your GroupOption.getId() returns an int, verify your DB column type.
-                // If DB column is VARCHAR, use setString:
                 pstmt.setString(1, String.valueOf(selectedGroup.getId()));
             }
 
@@ -417,11 +393,7 @@ public class MainController {
             pstmt.setDate(3, java.sql.Date.valueOf(dpTenggat.getValue()));
             pstmt.setDate(4, java.sql.Date.valueOf(LocalDate.now()));
             pstmt.setString(5, "BELUM_DIKERJAKAN");
-
-            // Set User ID
             pstmt.setInt(6, Session.getUser().getId());
-
-            // Set Group ID from ChoiceBox
             pstmt.setInt(7, selectedGroup.getId());
 
             pstmt.executeUpdate();
@@ -501,63 +473,51 @@ public class MainController {
         @Override
         public String toString() {
             return name;
-        } // This is what shows in the ChoiceBox
+        }
     }
 
     @FXML
     private void handleKelompok() {
-        // 1. Create the Alert
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Select Action");
         alert.setHeaderText("Choose your connection mode");
         alert.setContentText("Do you want to create a new session or join an existing one?");
 
-        // 2. Define Custom Buttons
         ButtonType buttonCreate = new ButtonType("Buat");
         ButtonType buttonJoin = new ButtonType("Join");
         ButtonType buttonCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
 
-        // 3. Set the buttons on the Alert
         alert.getButtonTypes().setAll(buttonCreate, buttonJoin, buttonCancel);
 
-        // 4. Show and Wait for response
         Optional<ButtonType> result = alert.showAndWait();
 
-        // 5. Handle the result
         if (result.get() == buttonCreate) {
             handleBuatKelompok();
         } else if (result.get() == buttonJoin) {
             handleJoin();
         } else {
             System.out.println("User chose Cancel");
-            // Close dialog or do nothing
         }
     }
 
     @FXML
     private void handleHapusKelompok() {
-        // 1. Create the Alert
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Select Action");
         alert.setHeaderText("Choose your Action");
         alert.setContentText("Yakin mau menghapus kelompok?");
 
-        // 2. Define Custom Buttons
         ButtonType buttonDelete = new ButtonType("Ya");
         ButtonType buttonCancel = new ButtonType("Tidak", ButtonData.CANCEL_CLOSE);
 
-        // 3. Set the buttons on the Alert
         alert.getButtonTypes().setAll(buttonDelete, buttonCancel);
 
-        // 4. Show and Wait for response
         Optional<ButtonType> result = alert.showAndWait();
 
-        // 5. Handle the result
         if (result.get() == buttonDelete) {
             hapusKelompok();
         } else {
             System.out.println("User chose Cancel");
-            // Close dialog or do nothing
         }
     }
 
@@ -577,24 +537,21 @@ public class MainController {
             String sqlCheckParams = "SELECT 1 FROM Kelompok WHERE nama_Kelompok = ?";
 
             String sqlInsertGroup = "INSERT INTO Kelompok (nama_Kelompok, id_Ketua) VALUES (?,?)";
-            // NEW QUERY: Insert into Anggota table
             String sqlInsertMember = "INSERT INTO Anggota (id_Pengguna, id_Kelompok) VALUES (?, ?)";
 
             try (Connection conn = DatabaseHelper.connect()) {
-                conn.setAutoCommit(false); // Start Transaction
+                conn.setAutoCommit(false);
 
                 try (PreparedStatement pstmtCheck = conn.prepareStatement(sqlCheckParams)) {
                     pstmtCheck.setString(1, namaKelompok);
                     try (ResultSet rs = pstmtCheck.executeQuery()) {
                         if (rs.next()) {
-                            // If we found a row, the name exists.
                             showAlert("Gagal", "Nama kelompok '" + namaKelompok + "' sudah digunakan.");
-                            return; // STOP HERE. Do not insert.
+                            return;
                         }
                     }
                 }
 
-                // 1. Create the Group
                 int newGroupId = -1;
                 try (PreparedStatement pstmtGroup = conn.prepareStatement(sqlInsertGroup, Statement.RETURN_GENERATED_KEYS)) {
                     pstmtGroup.setString(1, namaKelompok);
@@ -610,16 +567,14 @@ public class MainController {
                     }
                 }
 
-                // 2. Add User to the new Group (in Anggota table)
                 if (newGroupId != -1) {
                     try (PreparedStatement pstmtMember = conn.prepareStatement(sqlInsertMember)) {
-                        pstmtMember.setInt(1, Session.getUser().getId()); // User ID
-                        pstmtMember.setInt(2, newGroupId);                // New Group ID
+                        pstmtMember.setInt(1, Session.getUser().getId());
+                        pstmtMember.setInt(2, newGroupId);
                         pstmtMember.executeUpdate();
                     }
-                    conn.commit(); // Save everything
+                    conn.commit();
 
-                    // Refresh UI
                     loadKelompokOptions();
                     showAlert("Sukses", "Kelompok '" + namaKelompok + "' berhasil dibuat!");
                 } else {
@@ -650,13 +605,12 @@ public class MainController {
 
             String sqlNamaKelompok = "SELECT kelompok.nama_Kelompok FROM kelompok INNER JOIN anggota ON kelompok.id_Kelompok = anggota.id_Kelompok WHERE anggota.id_Pengguna = ? AND anggota.id_Kelompok = ?";
 
-            // NEW QUERY: Insert into Anggota table
             String sqlInsertMember = "INSERT INTO Anggota (id_Pengguna, id_Kelompok) VALUES (?, ?)";
 
             String namaKelompok = "";
 
             try (Connection conn = DatabaseHelper.connect()) {
-                conn.setAutoCommit(false); // Start Transaction
+                conn.setAutoCommit(false);
 
                 try (PreparedStatement pstmtKelompok = conn.prepareStatement(sqlNamaKelompok)) {
                     pstmtKelompok.setInt(1, Session.getUser().getId());
@@ -674,9 +628,8 @@ public class MainController {
                     pstmtCheck.setInt(2, Session.getUser().getId());
                     try (ResultSet rs = pstmtCheck.executeQuery()) {
                         if (rs.next()) {
-                            // If we found a row, the name exists.
                             showAlert("Gagal", "Anda sudah masuk kelompok '" + namaKelompok + "'");
-                            return; // STOP HERE. Do not insert.
+                            return;
                         }
                     }
                 }
@@ -686,9 +639,8 @@ public class MainController {
                     pstmtMember.setString(2, id_Kelompok);
                     pstmtMember.executeUpdate();
                 }
-                conn.commit(); // Save everything
+                conn.commit();
 
-                // Refresh UI
                 loadKelompokOptions();
 
                 showAlert("Sukses", "Masuk Ke Kelompok " + namaKelompok + " Berhasil");

@@ -40,7 +40,31 @@ public class Tugas {
         return status;
     }
 
+    public String getId_Kelompok() {
+        return id_Kelompok;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNamaTugas(String namaTugas) {
+        this.namaTugas = namaTugas;
+    }
+
+    public void setDeskripsi(String deskripsi) {
+        this.deskripsi = deskripsi;
+    }
+
+    public void setTenggat(LocalDate tenggat) {
+        this.tenggat = tenggat;
+    }
+
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public void setId_Kelompok(String id_Kelompok) {
+        this.id_Kelompok = id_Kelompok;
     }
 }
