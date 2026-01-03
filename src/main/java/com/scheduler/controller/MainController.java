@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import com.scheduler.controller.MainController.GroupOption;
@@ -110,6 +111,8 @@ public class MainController {
         colAnggotaId.setCellValueFactory(new PropertyValueFactory<>("idPengguna"));
         colAnggotaNama.setCellValueFactory(new PropertyValueFactory<>("namaPengguna")); // Matches getNamaPengguna()
         colAnggotaStatus.setCellValueFactory(new PropertyValueFactory<>("statusAnggota")); // Matches getStatusAnggota()
+
+        cekTenggat();
 
         // 1. Load the Groups into ChoiceBox first
         loadKelompokOptions();
@@ -431,7 +434,6 @@ public class MainController {
         }
     }
 
-    // Fungsi DELETE: Menghapus tugas [cite: 90]
     @FXML
     private void handleHapus() {
         Tugas selected = tableTugas.getSelectionModel().getSelectedItem();
@@ -697,7 +699,34 @@ public class MainController {
         });
     }
 
-    // Helper method for alerts
+    private void cekTenggat() {
+        int tugasUrgent = 0;
+        LocalDate today = LocalDate.now();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String nowTanggal = today.format(formatter);
+
+        String query = "SELECT COUNT(*) AS tugasUrgent FROM tugas WHERE id_Pengguna = ? AND tenggat < ?";
+
+        try (Connection conn = DatabaseHelper.connect(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setInt(1, Session.getUser().getId());
+            pstmt.setString(2, nowTanggal);
+
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                tugasUrgent = rs.getInt("tugasUrgent");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (tugasUrgent > 0) {
+            showAlert("Alert", tugasUrgent + " Tugas memiliki tenggat dekat atau sudah lewat!");
+        }
+    }
+
     private void showAlert(String title, String message) {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle(title);

@@ -41,8 +41,6 @@ public class LoginController {
             return;
         }
 
-        // Validasi ke Database
-        // Menggunakan kolom nama_Pengguna dan password sesuai PDF [cite: 245, 246]
         String query = "SELECT * FROM Pengguna WHERE nama_Pengguna = ? AND password = ?";
 
         try (Connection conn = DatabaseHelper.connect(); PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -53,7 +51,6 @@ public class LoginController {
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                // Login Berhasil
                 Pengguna user = new Pengguna(
                         rs.getInt("id_Pengguna"),
                         rs.getString("nama_Pengguna"),
@@ -61,10 +58,8 @@ public class LoginController {
                         rs.getString("password")
                 );
 
-                // Simpan user ke sesi
                 Session.setUser(user);
 
-                // Pindah ke Dashboard
                 switchToDashboard();
             } else {
                 lblError.setText("Username atau Password salah!");
