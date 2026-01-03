@@ -45,6 +45,14 @@
                 <version>0.0.8</version>
                 <configuration>
                     <mainClass>com.scheduler.App</mainClass>
+
+                    <jlinkImageName>AplikasiTugasMahasiswa</jlinkImageName>
+                    <launcher>LauncherTugas</launcher>
+
+                    <compress>2</compress>
+                    <noManPages>true</noManPages>
+                    <noHeaderFiles>true</noHeaderFiles>
+                    <stripDebug>true</stripDebug>
                 </configuration>
             </plugin>
         </plugins>

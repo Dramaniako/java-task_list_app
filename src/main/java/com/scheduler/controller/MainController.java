@@ -200,7 +200,7 @@ public class MainController {
             return;
         }
 
-        String sqlCheckLeader = "SELECT id_Ketua FROM Kelompok WHERE id_Kelompok = ?";
+        String sqlCheckLeader = "SELECT id_Ketua FROM kelompok WHERE id_Kelompok = ?";
         String sqlDeleteMember = "DELETE FROM anggota WHERE id_Pengguna = ? AND id_Kelompok = ?";
 
         try (Connection conn = DatabaseHelper.connect()) {
@@ -339,9 +339,9 @@ public class MainController {
         boolean isShowAll = (selectedGroup == null || selectedGroup.getId() == 0);
 
         if (isShowAll) {
-            query = "SELECT * FROM Tugas WHERE id_Pengguna = ?";
+            query = "SELECT * FROM tugas WHERE id_Pengguna = ?";
         } else {
-            query = "SELECT * FROM Tugas WHERE id_Kelompok = ?";
+            query = "SELECT * FROM tugas WHERE id_Kelompok = ?";
         }
 
         try (Connection conn = DatabaseHelper.connect(); PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -378,7 +378,7 @@ public class MainController {
             return;
         }
 
-        String query = "INSERT INTO Tugas (nama_Tugas, deskripsi_Tugas, tenggat, tanggal_Mulai, status, id_Pengguna, id_Kelompok) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO tugas (nama_Tugas, deskripsi_Tugas, tenggat, tanggal_Mulai, status, id_Pengguna, id_Kelompok) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseHelper.connect(); PreparedStatement pstmt = conn.prepareStatement(query)) {
 
@@ -410,7 +410,7 @@ public class MainController {
     private void handleHapus() {
         Tugas selected = tableTugas.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            String query = "DELETE FROM Tugas WHERE id_Tugas = ?";
+            String query = "DELETE FROM tugas WHERE id_Tugas = ?";
             try (Connection conn = DatabaseHelper.connect(); PreparedStatement pstmt = conn.prepareStatement(query)) {
                 pstmt.setInt(1, selected.getId());
                 pstmt.executeUpdate();
@@ -435,7 +435,7 @@ public class MainController {
                 newStatus = "SELESAI";
             }
 
-            String query = "UPDATE Tugas SET status = ? WHERE id_Tugas = ?";
+            String query = "UPDATE tugas SET status = ? WHERE id_Tugas = ?";
             try (Connection conn = DatabaseHelper.connect(); PreparedStatement pstmt = conn.prepareStatement(query)) {
                 pstmt.setString(1, newStatus);
                 pstmt.setInt(2, selected.getId());
@@ -534,10 +534,10 @@ public class MainController {
                 return;
             }
 
-            String sqlCheckParams = "SELECT 1 FROM Kelompok WHERE nama_Kelompok = ?";
+            String sqlCheckParams = "SELECT 1 FROM kelompok WHERE nama_Kelompok = ?";
 
-            String sqlInsertGroup = "INSERT INTO Kelompok (nama_Kelompok, id_Ketua) VALUES (?,?)";
-            String sqlInsertMember = "INSERT INTO Anggota (id_Pengguna, id_Kelompok) VALUES (?, ?)";
+            String sqlInsertGroup = "INSERT INTO kelompok (nama_Kelompok, id_Ketua) VALUES (?,?)";
+            String sqlInsertMember = "INSERT INTO anggota (id_Pengguna, id_Kelompok) VALUES (?, ?)";
 
             try (Connection conn = DatabaseHelper.connect()) {
                 conn.setAutoCommit(false);
@@ -601,11 +601,11 @@ public class MainController {
             if (id_Kelompok.trim().isEmpty()) {
                 return;
             }
-            String sqlCheckParams = "SELECT 1 FROM Anggota WHERE id_Kelompok = ? AND id_Pengguna = ?";
+            String sqlCheckParams = "SELECT 1 FROM anggota WHERE id_Kelompok = ? AND id_Pengguna = ?";
 
             String sqlNamaKelompok = "SELECT kelompok.nama_Kelompok FROM kelompok INNER JOIN anggota ON kelompok.id_Kelompok = anggota.id_Kelompok WHERE anggota.id_Pengguna = ? AND anggota.id_Kelompok = ?";
 
-            String sqlInsertMember = "INSERT INTO Anggota (id_Pengguna, id_Kelompok) VALUES (?, ?)";
+            String sqlInsertMember = "INSERT INTO anggota (id_Pengguna, id_Kelompok) VALUES (?, ?)";
 
             String namaKelompok = "";
 

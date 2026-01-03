@@ -41,7 +41,7 @@ public class LoginController {
             return;
         }
 
-        String query = "SELECT * FROM Pengguna WHERE nama_Pengguna = ? AND password = ?";
+        String query = "SELECT * FROM pengguna WHERE nama_Pengguna = ? AND password = ?";
 
         try (Connection conn = DatabaseHelper.connect(); PreparedStatement pstmt = conn.prepareStatement(query)) {
 
@@ -83,8 +83,8 @@ public class LoginController {
             return;
         }
 
-        String query = "SELECT * FROM Pengguna WHERE nama_Pengguna = ? AND email = ?";
-        String regist = "INSERT INTO Pengguna (nama_Pengguna, email, password) VALUES (?,?,?)";
+        String query = "SELECT * FROM pengguna WHERE nama_Pengguna = ? AND email = ?";
+        String regist = "INSERT INTO pengguna (nama_Pengguna, email, password) VALUES (?,?,?)";
 
         try (Connection conn = DatabaseHelper.connect(); PreparedStatement pstmt = conn.prepareStatement(query); PreparedStatement reg = conn.prepareStatement(regist)) {
 
