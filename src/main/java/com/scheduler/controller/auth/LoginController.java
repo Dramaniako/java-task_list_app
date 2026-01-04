@@ -19,12 +19,10 @@ public class LoginController {
 
     @FXML
     private TextField txtUsername;
-    @FXML
-    private TextField txtEmail;
+
     @FXML
     private PasswordField txtPassword;
-    @FXML
-    private PasswordField txtConPassword;
+
     @FXML
     private Label lblError;
 

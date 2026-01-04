@@ -41,12 +41,13 @@ public class RegisterController {
             return;
         }
 
-        String query = "SELECT * FROM pengguna WHERE email = ?";
+        String query = "SELECT * FROM pengguna WHERE email = ? OR nama_Pengguna = ?";
         String regist = "INSERT INTO pengguna (nama_Pengguna, email, password) VALUES (?,?,?)";
 
         try (Connection conn = DatabaseHelper.connect(); PreparedStatement pstmt = conn.prepareStatement(query); PreparedStatement reg = conn.prepareStatement(regist)) {
 
             pstmt.setString(1, email);
+            pstmt.setString(2, username);
 
             ResultSet rs = pstmt.executeQuery();
 
@@ -59,7 +60,7 @@ public class RegisterController {
 
                 switchToLogin();
             } else {
-                lblError.setText("Email sudah digunakan!");
+                lblError.setText("Email atau Username sudah digunakan!");
             }
 
         } catch (SQLException e) {

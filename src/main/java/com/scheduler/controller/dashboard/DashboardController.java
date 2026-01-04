@@ -229,38 +229,67 @@ public class DashboardController {
     }
 
     @FXML
-    private void handleTambah() {
+    private void handleTambahUpdate() {
+        String query = "";
+        String alert = "";
+
         Kelompok selectedGroup = kelompok.getValue();
         if (selectedGroup == null || selectedGroup.getIdKelompok() == 0) {
             showAlert("Peringatan", "Silakan pilih spesifik Kelompok di dropdown atas (bukan 'Semua Tugas') untuk menambahkan tugas ke dalamnya.");
             return;
         }
 
-        String query = "INSERT INTO tugas (nama_Tugas, deskripsi_Tugas, tenggat, tanggal_Mulai, status, id_Pengguna, id_Kelompok) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        Tugas selected = tableTugas.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            query = "UPDATE tugas SET nama_Tugas = ?, deskripsi_Tugas = ?, tenggat = ? WHERE id_Tugas = ?";
+        } else {
+            query = "INSERT INTO tugas (nama_Tugas, deskripsi_Tugas, tenggat, tanggal_Mulai, status, id_Pengguna, id_Kelompok) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        }
 
         try (Connection conn = DatabaseHelper.connect(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+            if (selected != null) {
+                alert = "Mengupdate";
 
-            pstmt.setString(1, txtNama.getText());
-            pstmt.setString(2, txtDeskripsi.getText());
+                pstmt.setString(1, txtNama.getText());
+                pstmt.setString(2, txtDeskripsi.getText());
 
-            if (dpTenggat.getValue() == null) {
-                showAlert("Error", "Mohon isi tanggal tenggat.");
-                return;
+                if (dpTenggat.getValue() == null) {
+                    showAlert("Error", "Mohon isi tanggal tenggat.");
+                    return;
+                }
+
+                pstmt.setDate(3, java.sql.Date.valueOf(dpTenggat.getValue()));
+                pstmt.setInt(4, selected.getId());
+
+                pstmt.executeUpdate();
+                loadData();
+                clearForm();
+                showAlert("Sukses", "Tugas berhasil diupdate");
+            } else {
+                alert = "Menambah";
+
+                pstmt.setString(1, txtNama.getText());
+                pstmt.setString(2, txtDeskripsi.getText());
+
+                if (dpTenggat.getValue() == null) {
+                    showAlert("Error", "Mohon isi tanggal tenggat.");
+                    return;
+                }
+
+                pstmt.setDate(3, java.sql.Date.valueOf(dpTenggat.getValue()));
+                pstmt.setDate(4, java.sql.Date.valueOf(LocalDate.now()));
+                pstmt.setString(5, "BELUM_DIKERJAKAN");
+                pstmt.setInt(6, Session.getUser().getId());
+                pstmt.setInt(7, selectedGroup.getIdKelompok());
+
+                pstmt.executeUpdate();
+                loadData();
+                clearForm();
+                showAlert("Sukses", "Tugas berhasil ditambahkan ke " + selectedGroup.toString());
             }
-
-            pstmt.setDate(3, java.sql.Date.valueOf(dpTenggat.getValue()));
-            pstmt.setDate(4, java.sql.Date.valueOf(LocalDate.now()));
-            pstmt.setString(5, "BELUM_DIKERJAKAN");
-            pstmt.setInt(6, Session.getUser().getId());
-            pstmt.setInt(7, selectedGroup.getIdKelompok());
-
-            pstmt.executeUpdate();
-            loadData();
-            clearForm();
-            showAlert("Sukses", "Tugas berhasil ditambahkan ke " + selectedGroup.toString());
         } catch (SQLException e) {
             e.printStackTrace();
-            showAlert("Error", "Gagal menambah tugas: " + e.getMessage());
+            showAlert("Error", "Gagal " + alert + " tugas: " + e.getMessage());
         }
     }
 
@@ -622,7 +651,7 @@ public class DashboardController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String nowTanggal = today.format(formatter);
 
-        String query = "SELECT COUNT(*) AS tugasUrgent FROM tugas WHERE id_Pengguna = ? AND tenggat < ?";
+        String query = "SELECT COUNT(*) AS tugasUrgent FROM tugas WHERE id_Pengguna = ? AND tenggat <= ?";
 
         try (Connection conn = DatabaseHelper.connect(); PreparedStatement pstmt = conn.prepareStatement(query)) {
 

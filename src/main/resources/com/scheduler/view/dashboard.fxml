@@ -36,7 +36,7 @@
             <TextArea fx:id="txtDeskripsi" prefHeight="50" />
             <Label text="Tenggat Waktu:" textFill="#c5334c" />
             <DatePicker fx:id="dpTenggat" />
-            <Button maxWidth="Infinity" onAction="#handleTambah" text="Tambah Tugas" />
+            <Button maxWidth="Infinity" onAction="#handleTambahUpdate" text="Tambah/Ubah Tugas" />
             <Button maxWidth="Infinity" onAction="#handleHapus"
                 style="-fx-background-color: #DC143C;" text="Hapus Terpilih" textFill="WHITE" />
             <Button maxWidth="Infinity" onAction="#handleStatus"
